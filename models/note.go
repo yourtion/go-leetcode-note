@@ -9,8 +9,8 @@ import (
 type Language int8
 
 const (
-	JAVA Language = iota
-	JAVASCRIPT
+	Language_JAVA Language = iota
+	Language_JAVASCRIPT
 )
 
 func (l Language) String() string {

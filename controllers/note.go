@@ -18,6 +18,13 @@ type NoteController struct {
 }
 
 func (c *NoteController) Get() {
+	// Session 验证
+	user := c.GetSession(LoginKey)
+	if verifyUser(user) {
+		c.Redirect("/", 307)
+		return
+	}
+
 	sid := c.Ctx.Input.Param(":id")
 	if id, err := strconv.Atoi(sid); err == nil || id > 1 {
 		if err, note := models.GetNoteById(id); err == nil {
@@ -29,6 +36,13 @@ func (c *NoteController) Get() {
 }
 
 func (c *NoteController) Post() {
+	// Session 验证
+	user := c.GetSession(LoginKey)
+	if verifyUser(user) {
+		c.Redirect("/", 307)
+		return
+	}
+
 	id, _ := c.GetInt("id", 0)
 	pTitle := c.GetString("p-title")
 	pUrl := c.GetString("p-url")
@@ -58,7 +72,7 @@ func (c *NoteController) Post() {
 	note := models.Note{
 		Id:          uint(id),
 		Problem:     &problem,
-		Language:    0,
+		Language:    models.Language_JAVA,
 		Day:         time.Now(),
 		Solution:    solution,
 		Submissions: submissions,
