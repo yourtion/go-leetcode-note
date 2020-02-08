@@ -7,6 +7,8 @@ type IndexController struct {
 }
 
 func (c *IndexController) Get() {
-	c.Data["User"] = "Yourtion"
+	c.Layout = "layout.html"
 	c.TplName = "index.tpl"
+
+	c.Data["User"] = "Yourtion"
 }

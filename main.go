@@ -3,15 +3,15 @@ package main
 import (
 	"os"
 	"strconv"
+
 	_ "leetcode-note/routers"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-
 )
 
 func main() {
-	logs.SetLogger("console")
+	_ = logs.SetLogger("console")
 	log := logs.GetLogger()
 
 	workingDir := "./"
