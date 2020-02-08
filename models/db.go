@@ -1,12 +1,12 @@
 package models
 
 import (
+	"fmt"
 	"log"
 	"os"
 
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
-	_ "github.com/mattn/go-sqlite3"
 )
 
 func init() {
@@ -16,13 +16,12 @@ func init() {
 	// set default database
 	var err error
 	if dataSource != "" {
+		fmt.Printf(dataSource)
 		err = orm.RegisterDataBase("default", "postgres", dataSource)
 		orm.SetMaxOpenConns("default", 20)
 		if err != nil {
 			log.Fatal(err)
 		}
-	} else {
-		_ = orm.RegisterDataBase("default", "sqlite3", "/tmp/leetcode.db")
 	}
 
 	orm.RegisterModel(new(Problem), new(Note))

@@ -1,0 +1,17 @@
+#note {
+    max-width: 800px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+#solution {
+    height: 200px;
+}
+
+#rethink {
+    height: 130px;
+}
+
+#n-submit {
+    width: 100%;
+}
