@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
 
 	"leetcode-note/models"
@@ -17,6 +18,7 @@ func (c *IndexController) Get() {
 
 	// Session
 	user := c.Ctx.Input.Query(LoginKey)
+	logs.Trace("user: %v", user)
 	if verifyUser(user) {
 		c.SetSession(LoginKey, user)
 	}
@@ -29,11 +31,14 @@ func (c *IndexController) Get() {
 		c.Data["login"] = true
 	}
 
+	page, _ := c.GetInt("page", 1)
+	size, _ := c.GetInt("size", 20)
+	logs.Trace("Page Info: %d , %d", page, size)
 	// 列表
 	o := orm.NewOrm()
-	qs := o.QueryTable("note").RelatedSel().OrderBy("-Id")
+	qs := o.QueryTable("note").RelatedSel().OrderBy("-Id").Limit(size, (page-1)*size)
 	var notes []*models.Note
-	if num, err := qs.All(&notes); err == nil {
+	if num, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions"); err == nil {
 		c.Data["count"] = num
 		c.Data["data"] = &notes
 	}

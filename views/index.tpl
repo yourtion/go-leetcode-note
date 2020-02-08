@@ -13,13 +13,13 @@
         {{range .data}}
         <tr>
             <td>{{.Id}}</td>
-            <td>{{.Problem.Pid}}. {{.Problem.Name}}</td>
+            <td>
+                <a target="_blank" href="{{.Problem.Url}}">{{.Problem.Pid}}. {{.Problem.Name}}</a>
+            </td>
             <td>{{date .Day "Y-m-d" }}</td>
-            {{if $.login }}
-            <td><a href="/note/{{.Id}}">编辑</a></td>
-            {{else}}
-            <td>查看</td>
-            {{end}}
+            <td>
+                <a target="_blank" href="{{.Submissions}}">查看</a>{{if $.login }} | <a href="/note/{{.Id}}">编辑</a>{{end}}
+            </td>
         </tr>
         {{end}}
         </tbody>

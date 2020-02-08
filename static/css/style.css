@@ -1,3 +1,12 @@
+a:visited {
+    color: #265778;
+}
+
+a {
+    color: #3b8bba;
+    text-decoration: none;
+}
+
 #note {
     max-width: 800px;
     width: 60%;

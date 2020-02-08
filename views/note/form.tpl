@@ -1,5 +1,5 @@
 <div id="note">
-    <form class="pure-form pure-form-aligned" method="post" autocomplete="off">
+    <form class="pure-form pure-form-aligned" method="post" autocomplete="off" onsubmit="return validateForm()">
         <label><input name="id" hidden="hidden" value="{{.note.Id}}"/></label>
         <fieldset class="pure-group">
             <legend>题目</legend>
@@ -37,4 +37,5 @@
             </div>
         </div>
     </form>
+    <script src="/static/js/note.js"></script>
 </div>
