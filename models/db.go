@@ -10,9 +10,8 @@ import (
 )
 
 func init() {
+	// orm.Debug = true
 	dataSource := os.Getenv("DATABASE_URL")
-	orm.Debug = true
-
 	// set default database
 	var err error
 	if dataSource != "" {

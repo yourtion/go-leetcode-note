@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/astaxie/beego/orm"
+)
 
 type Language int8
 
@@ -32,4 +36,18 @@ func (u *Note) TableIndex() [][]string {
 	return [][]string{
 		{"Language", "Day"},
 	}
+}
+
+func GetNoteById(id int) (error, *Note) {
+	note := Note{Id: uint(id)}
+	o := orm.NewOrm()
+	err := o.Read(&note)
+	if err != nil {
+		return err, nil
+	}
+	_, err = o.LoadRelated(&note, "Problem")
+	if err != nil {
+		return err, nil
+	}
+	return nil, &note
 }
