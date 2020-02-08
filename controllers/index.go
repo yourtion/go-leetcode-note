@@ -18,13 +18,13 @@ func (c *IndexController) Get() {
 	// Session
 	user := c.Ctx.Input.Query(LoginKey)
 	if verifyUser(user) {
-		c.SetSession(LoginKey, "yourtion")
+		c.SetSession(LoginKey, user)
 	}
 	if user == "logout" {
-		c.DelSession("user")
+		c.DelSession(LoginKey)
 	}
 
-	login := c.GetSession("user")
+	login := c.GetSession(LoginKey)
 	if verifyUser(login) {
 		c.Data["login"] = true
 	}
