@@ -20,7 +20,7 @@ type NoteController struct {
 func (c *NoteController) Get() {
 	// Session 验证
 	user := c.GetSession(LoginKey)
-	if verifyUser(user) {
+	if !verifyUser(user) {
 		c.Redirect("/", 307)
 		return
 	}
@@ -38,7 +38,7 @@ func (c *NoteController) Get() {
 func (c *NoteController) Post() {
 	// Session 验证
 	user := c.GetSession(LoginKey)
-	if verifyUser(user) {
+	if !verifyUser(user) {
 		c.Redirect("/", 307)
 		return
 	}
@@ -51,6 +51,7 @@ func (c *NoteController) Post() {
 	rethink := c.GetString("rethink")
 	harvest := c.GetString("harvest")
 	mark, _ := c.GetBool("mark", false)
+	day := c.GetString("day")
 	pro := strings.Split(pTitle, ".")
 	pName := strings.TrimSpace(strings.Replace(pTitle, pro[0]+".", "", 1))
 	pid, err := strconv.Atoi(pro[0])
@@ -69,15 +70,23 @@ func (c *NoteController) Post() {
 		c.Ctx.WriteString("problem error")
 		return
 	}
+	// 处理日期
+	d := time.Now()
+	if day != "" {
+		if d, err = time.Parse("2006-01-02", day); err != nil {
+			d = time.Now()
+			logs.Error(err)
+		}
+	}
 	note := models.Note{
 		Id:          uint(id),
 		Problem:     &problem,
 		Language:    models.Language_JAVA,
-		Day:         time.Now(),
-		Solution:    solution,
-		Submissions: submissions,
-		Rethink:     rethink,
-		Harvest:     harvest,
+		Day:         d,
+		Solution:    strings.TrimSpace(solution),
+		Submissions: strings.TrimSpace(submissions),
+		Rethink:     strings.TrimSpace(rethink),
+		Harvest:     strings.TrimSpace(harvest),
 		Mark:        mark,
 	}
 	var newId int64

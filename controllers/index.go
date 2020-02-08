@@ -18,7 +18,7 @@ func (c *IndexController) Get() {
 	// Session
 	user := c.Ctx.Input.Query(LoginKey)
 	if verifyUser(user) {
-		c.SetSession("user", "yourtion")
+		c.SetSession(LoginKey, "yourtion")
 	}
 	if user == "logout" {
 		c.DelSession("user")

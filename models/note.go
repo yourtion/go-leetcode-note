@@ -21,7 +21,7 @@ type Note struct {
 	Id          uint
 	Problem     *Problem  `json:"problem"orm:"rel(fk)"description:"题目"`
 	Language    Language  `json:"language"description:"编程语言"`
-	Day         time.Time `json:"day"type(date)description:"日期"`
+	Day         time.Time `json:"day"orm:"type(date)"description:"日期"`
 	Solution    string    `json:"solution"description:"解题思路"`
 	Submissions string    `json:"submissions"orm:"size(128) "description:"提交记录"`
 	Rethink     string    `json:"rethink"description:"反思"`
