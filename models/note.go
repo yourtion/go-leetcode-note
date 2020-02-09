@@ -6,24 +6,13 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type Language int8
-
-const (
-	Language_JAVA Language = iota
-	Language_JAVASCRIPT
-)
-
-func (l Language) String() string {
-	return [...]string{"Java", "JavaScript"}[l]
-}
-
 type Note struct {
 	Id          uint
 	Problem     *Problem  `json:"problem"orm:"rel(fk)"description:"题目"`
-	Language    Language  `json:"language"description:"编程语言"`
+	Lang        string    `json:"lang"orm:"size(16)"description:"编程语言"`
 	Day         time.Time `json:"day"orm:"type(date)"description:"日期"`
 	Solution    string    `json:"solution"description:"解题思路"`
-	Submissions string    `json:"submissions"orm:"size(128) "description:"提交记录"`
+	Submissions string    `json:"submissions"orm:"size(128)"description:"提交记录"`
 	Rethink     string    `json:"rethink"description:"反思"`
 	Harvest     string    `json:"harvest"description:"收获"`
 	Mark        bool      `json:"mark"description:"标记"`
@@ -34,7 +23,7 @@ type Note struct {
 // 多字段索引
 func (u *Note) TableIndex() [][]string {
 	return [][]string{
-		{"Language", "Day"},
+		{"Lang", "Day"},
 	}
 }
 

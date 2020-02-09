@@ -17,9 +17,14 @@ function isValidDate(dateString) {
     return d.toISOString().slice(0, 10) === dateString;
 }
 
+function isValidLang(lang) {
+    return ["Java", "MySQL"].indexOf(lang) > -1;
+}
+
 
 var day = getParameterByName('day');
 var eDay = document.getElementById("day");
+var eLang = document.getElementById("lang");
 if (day && !eDay.value) {
     eDay.value = day;
 }
@@ -29,6 +34,10 @@ function validateForm() {
     if (eDay && eDay.value) {
         ok = isValidDate(eDay.value);
         if (!ok) alert("day not ok");
+    }
+    if (eLang && eLang.value) {
+        ok = isValidLang(eLang.value);
+        if (!ok) alert("lang not ok");
     }
     return ok;
 

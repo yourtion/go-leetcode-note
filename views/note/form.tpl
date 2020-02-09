@@ -23,16 +23,19 @@
 
         </fieldset>
         <div class="pure-g">
-            <div class="pure-u-1-5">
+            <div class="pure-u-1-4">
                 <label for="mark" class="pure-checkbox">
                     <input id="mark" name="mark" type="checkbox" value="{{.note.Mark}}"> 标记 </input>
                 </label>
             </div>
-            <div class="pure-u-3-5">
+            <div class="pure-u-1-4">
                 <input id="day" name="day" placeholder="日期" type="text"
                        value='{{if .note.Day }}{{ date .note.Day "Y-m-d" }}{{end}}'/>
             </div>
-            <div class="pure-u-1-5">
+            <div class="pure-u-1-4">
+                <input id="lang" name="lang" placeholder="编程语言" type="text" value="{{.note.Lang}}"/>
+            </div>
+            <div class="pure-u-1-4">
                 <button id="n-submit" type="submit" value="submit" class="pure-button pure-button-primary">提交</button>
             </div>
         </div>

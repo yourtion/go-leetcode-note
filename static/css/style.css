@@ -7,15 +7,9 @@ a {
     text-decoration: none;
 }
 
-#note {
+#note, #index {
     max-width: 800px;
-    width: 60%;
-    margin: 0 auto;
-}
-
-#index {
-    max-width: 800px;
-    width: 60%;
+    width: 95%;
     margin: 0 auto;
 }
 

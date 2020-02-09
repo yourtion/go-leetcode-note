@@ -52,6 +52,7 @@ func (c *NoteController) Post() {
 	harvest := c.GetString("harvest")
 	mark, _ := c.GetBool("mark", false)
 	day := c.GetString("day")
+	lang := c.GetString("lang", "Java")
 	pro := strings.Split(pTitle, ".")
 	pName := strings.TrimSpace(strings.Replace(pTitle, pro[0]+".", "", 1))
 	pid, err := strconv.Atoi(pro[0])
@@ -81,7 +82,7 @@ func (c *NoteController) Post() {
 	note := models.Note{
 		Id:          uint(id),
 		Problem:     &problem,
-		Language:    models.Language_JAVA,
+		Lang:        lang,
 		Day:         d,
 		Solution:    strings.TrimSpace(solution),
 		Submissions: strings.TrimSpace(submissions),
