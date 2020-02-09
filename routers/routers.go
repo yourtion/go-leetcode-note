@@ -9,4 +9,6 @@ import (
 func init() {
 	beego.Router("/", &controllers.IndexController{})
 	beego.Router("/note/?:id", &controllers.NoteController{})
+	beego.Router("/export", &controllers.ExportController{})
+
 }
