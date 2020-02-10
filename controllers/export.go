@@ -20,7 +20,7 @@ func (c *ExportController) Get() {
 		return
 	}
 
-	c.TplName = "note/blog.tpl"
+	c.TplName = "note/blog.md"
 
 	s, e := getWeekRange()
 	logs.Trace("GetWeek Range: %d -> %d", s, e)

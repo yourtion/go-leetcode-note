@@ -56,5 +56,6 @@ func main() {
 	} else {
 		logs.SetLevel(logs.LevelInfo)
 	}
+	beego.AddTemplateExt("md")
 	beego.Run()
 }
