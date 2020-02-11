@@ -38,7 +38,7 @@ func (c *IndexController) Get() {
 	o := orm.NewOrm()
 	qs := o.QueryTable("note").RelatedSel().OrderBy("-Id").Limit(size, (page-1)*size)
 	var notes []*models.Note
-	if num, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions"); err == nil {
+	if num, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions", "Mark"); err == nil {
 		c.Data["count"] = num
 		c.Data["data"] = &notes
 	}

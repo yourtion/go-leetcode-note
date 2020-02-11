@@ -14,7 +14,7 @@
         <tr>
             <td>{{.Id}}</td>
             <td>
-                <a target="_blank" href="{{.Problem.Url}}">{{.Problem.Pid}}. {{.Problem.Name}}</a>
+                <a target="_blank" href="{{.Problem.Url}}">{{.Problem.Pid}}. {{.Problem.Name}}</a>{{if .Mark}}*{{end}}
             </td>
             <td>{{date .Day "Y-m-d" }}</td>
             <td>
