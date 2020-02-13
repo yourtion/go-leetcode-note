@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -102,5 +103,5 @@ func (c *NoteController) Post() {
 		c.Ctx.WriteString("note error")
 		return
 	}
-	c.Ctx.Redirect(http.StatusFound, "/note/"+string(newId))
+	c.Ctx.Redirect(http.StatusFound, fmt.Sprintf("/note/%d", newId))
 }
