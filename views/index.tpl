@@ -3,6 +3,7 @@
         <div class="pure-u-4-5"><h2>总数：{{.count}}</h2></div>
         <div class="pure-u-1-5">
             <p>
+            {{if .login}}
             <div class="pure-menu pure-menu-horizontal">
                 <ul class="pure-menu-list">
                     <li class="pure-menu-item pure-menu-selected"><a href="/note" class="pure-menu-link">新建</a></li>
@@ -14,6 +15,7 @@
                     </li>
                 </ul>
             </div>
+            {{end}}
             </p>
         </div>
     </div>
