@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	"github.com/astaxie/beego/orm"
 
 	"leetcode-note/models"
 )
@@ -27,15 +26,12 @@ func (c *ExportController) Get() {
 	start, _ := c.GetInt("start", s)
 	end, _ := c.GetInt("end", e)
 
-	o := orm.NewOrm()
-	qs := o.QueryTable("note").RelatedSel().OrderBy("Id")
-	qs = qs.Filter("Day__gte", start)
-	qs = qs.Filter("Day__lte", end)
-	var notes []*models.Note
-	if num, err := qs.All(&notes); err == nil {
-		c.Data["count"] = num
-		c.Data["data"] = &notes
-		c.Data["start"] = start
-		c.Data["end"] = end
+	err, notes, num := models.GetNotesBetweenStartAndEnd(start, end)
+	if err != nil {
+		return
 	}
+	c.Data["count"] = num
+	c.Data["data"] = &notes
+	c.Data["start"] = start
+	c.Data["end"] = end
 }

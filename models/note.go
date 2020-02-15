@@ -3,6 +3,7 @@ package models
 import (
 	"time"
 
+	"github.com/astaxie/beego/logs"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -39,4 +40,43 @@ func GetNoteById(id int) (error, *Note) {
 		return err, nil
 	}
 	return nil, &note
+}
+
+func GetNotesBetweenStartAndEnd(start, end int) (error, []*Note, int64) {
+	o := orm.NewOrm()
+	qs := o.QueryTable("note").RelatedSel().OrderBy("Id")
+	qs = qs.Filter("Day__gte", start)
+	qs = qs.Filter("Day__lte", end)
+	var notes []*Note
+	num, err := qs.All(&notes)
+	if err != nil {
+		return err, nil, 0
+	}
+	return nil, notes, num
+}
+
+func PagesNotes(page, size int) (error, []*Note, int64) {
+	// 列表
+	o := orm.NewOrm()
+	qs := o.QueryTable("note").RelatedSel().OrderBy("-Id").Limit(size, (page-1)*size)
+	var notes []*Note
+	num, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions", "Mark")
+	logs.Trace("PagesNotes: %v, %d", notes, num)
+	if err != nil {
+		logs.Error(err)
+		return err, nil, 0
+	}
+	return nil, notes, num
+}
+
+func CreateOrUpdateNote(note *Note) (error, int64) {
+	o := orm.NewOrm()
+	var newId int64
+	var err error
+	if note.Id < 1 {
+		newId, err = o.Insert(note)
+	} else {
+		newId, err = o.Update(note)
+	}
+	return err, newId
 }

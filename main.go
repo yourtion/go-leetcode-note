@@ -4,9 +4,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/astaxie/beego/orm"
-
 	"leetcode-note/controllers"
+	"leetcode-note/models"
 	_ "leetcode-note/routers"
 
 	"github.com/astaxie/beego"
@@ -51,7 +50,7 @@ func main() {
 	// 设置 DEBUG
 	if os.Getenv("DEBUG") == "true" {
 		logs.Warn("Debug enabled !")
-		orm.Debug = true
+		models.EnableDebug()
 		logs.SetLevel(logs.LevelTrace)
 	} else {
 		logs.SetLevel(logs.LevelInfo)

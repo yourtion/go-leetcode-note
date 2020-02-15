@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -9,7 +8,6 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	"github.com/astaxie/beego/orm"
 
 	"leetcode-note/models"
 )
@@ -62,11 +60,9 @@ func (c *NoteController) Post() {
 		c.Ctx.WriteString("ERROR")
 		return
 	}
-	o := orm.NewOrm()
 	// 处理题目逻辑
 	problem := models.Problem{Pid: pid, Url: pUrl, Name: pName}
-	// 三个返回参数依次为：是否新创建的，对象 Id 值，错误
-	_, err = o.InsertOrUpdate(&problem, "Pid")
+	err = models.CreateOrUpdateProblem(&problem)
 	if err != nil {
 		logs.Error(err)
 		c.Ctx.WriteString("problem error")
@@ -91,17 +87,12 @@ func (c *NoteController) Post() {
 		Harvest:     strings.TrimSpace(harvest),
 		Mark:        mark,
 	}
-	var newId int64
-	if id < 1 {
-		newId, err = o.Insert(&note)
-	} else {
-		newId, err = o.Update(&note)
-	}
+	err, newId := models.CreateOrUpdateNote(&note)
 	logs.Info("newId: %d", newId)
 	if err != nil {
 		logs.Error(err)
 		c.Ctx.WriteString("note error")
 		return
 	}
-	c.Ctx.Redirect(http.StatusFound, fmt.Sprintf("/note/%d", newId))
+	c.Ctx.Redirect(http.StatusFound, "/")
 }

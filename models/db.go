@@ -29,3 +29,7 @@ func init() {
 		log.Fatal(err)
 	}
 }
+
+func EnableDebug() {
+	orm.Debug = true
+}
