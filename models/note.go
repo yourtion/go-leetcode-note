@@ -60,7 +60,8 @@ func PagesNotes(page, size int) (error, []*Note, int64) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("note").RelatedSel().OrderBy("-Id").Limit(size, (page-1)*size)
 	var notes []*Note
-	num, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions", "Mark")
+	_, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions", "Mark")
+	num, err := qs.Count()
 	logs.Trace("PagesNotes: %v, %d", notes, num)
 	if err != nil {
 		logs.Error(err)
