@@ -17,6 +17,7 @@ type Note struct {
 	Rethink     string    `json:"rethink"description:"反思"`
 	Harvest     string    `json:"harvest"description:"收获"`
 	Mark        bool      `json:"mark"description:"标记"`
+	Score       int16     `json:"score"description:"分数"`
 	Created     time.Time `json:"created"orm:"auto_now_add;type(datetime)"`
 	Updated     time.Time `json:"updated"orm:"auto_now;type(datetime)"`
 }
@@ -60,7 +61,7 @@ func PagesNotes(page, size int) (error, []*Note, int64) {
 	o := orm.NewOrm()
 	qs := o.QueryTable("note").RelatedSel().OrderBy("-Id").Limit(size, (page-1)*size)
 	var notes []*Note
-	_, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions", "Mark")
+	_, err := qs.All(&notes, "Id", "Problem", "Day", "Submissions", "Mark", "Score")
 	num, err := qs.Count()
 	logs.Trace("PagesNotes: %v, %d", notes, num)
 	if err != nil {

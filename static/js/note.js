@@ -25,6 +25,7 @@ function isValidLang(lang) {
 var day = getParameterByName('day');
 var eDay = document.getElementById("day");
 var eLang = document.getElementById("lang");
+var eScore = document.getElementById("score");
 if (day && !eDay.value) {
     eDay.value = day;
 }
@@ -38,6 +39,10 @@ function validateForm() {
     if (eLang && eLang.value) {
         ok = isValidLang(eLang.value);
         if (!ok) alert("lang not ok");
+    }
+    if (eScore.value < 1 || eScore.value > 5) {
+        ok = false;
+        if (!ok) alert("score not ok");
     }
     return ok;
 

@@ -52,6 +52,7 @@ func (c *NoteController) Post() {
 	mark, _ := c.GetBool("mark", false)
 	day := c.GetString("day")
 	lang := c.GetString("lang", "Java")
+	score, _ := c.GetInt16("score", 0)
 	pro := strings.Split(pTitle, ".")
 	pName := strings.TrimSpace(strings.Replace(pTitle, pro[0]+".", "", 1))
 	pid, err := strconv.Atoi(pro[0])
@@ -86,6 +87,7 @@ func (c *NoteController) Post() {
 		Rethink:     strings.TrimSpace(rethink),
 		Harvest:     strings.TrimSpace(harvest),
 		Mark:        mark,
+		Score:       score,
 	}
 	err, newId := models.CreateOrUpdateNote(&note)
 	logs.Info("newId: %d", newId)

@@ -25,6 +25,7 @@
             <th>#</th>
             <th>题目</th>
             <th>时间</th>
+            <th>分数</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -37,6 +38,7 @@
                         . {{.Problem.Name}}</a>{{if .Mark}}*{{end}}
                 </td>
                 <td>{{date .Day "Y-m-d" }}</td>
+                <td>{{.Score}}</td>
                 <td>
                     <a target="_blank" href="{{.Submissions}}">查看</a>{{if $.login }} | <a
                         href="/note/{{.Id}}">编辑</a>{{end}}
