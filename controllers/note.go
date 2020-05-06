@@ -53,7 +53,7 @@ func (c *NoteController) Post() {
 	day := c.GetString("day")
 	lang := c.GetString("lang", "Java")
 	score, _ := c.GetInt16("score", 0)
-	pro := strings.Split(pTitle, ".")
+	pro := strings.SplitN(pTitle, ".", 2)
 	pName := strings.TrimSpace(strings.Replace(pTitle, pro[0]+".", "", 1))
 	pid, err := strconv.Atoi(pro[0])
 	logs.Info("id: %d", id)
