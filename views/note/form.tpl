@@ -47,5 +47,5 @@
             </div>
         </div>
     </form>
-    <script src="/static/js/note.js?v=20200506"></script>
+    <script src="/static/js/note.js?v=20200608"></script>
 </div>

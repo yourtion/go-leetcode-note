@@ -64,19 +64,19 @@ try {
 
 function validateForm() {
     var ok = true;
-    if (eDay && eDay.value) {
+    if (ok && eDay && eDay.value) {
         ok = isValidDate(eDay.value);
         if (!ok) alert("day not ok");
     }
-    if (eLang && eLang.value) {
+    if (ok && eLang && eLang.value) {
         ok = isValidLang(eLang.value);
         if (!ok) alert("lang not ok");
     }
-    if (eScore.value < 1 || eScore.value > 5) {
+    if (ok && eScore.value < 1 || eScore.value > 5) {
         ok = false;
         if (!ok) alert("score not ok");
     }
-    if (eTitle && eTitle.value) {
+    if (ok && eTitle && eTitle.value) {
         ok = isValidTitle(eTitle.value);
         if (!ok) alert("title not ok");
     }
