@@ -51,7 +51,7 @@ func (c *NoteController) Post() {
 	harvest := c.GetString("harvest")
 	mark, _ := c.GetBool("mark", false)
 	day := c.GetString("day")
-	lang := c.GetString("lang", "Java")
+	lang := c.GetString("lang", "Go")
 	score, _ := c.GetInt16("score", 0)
 	pro := strings.SplitN(pTitle, ".", 2)
 	pName := strings.TrimSpace(strings.Replace(pTitle, pro[0]+".", "", 1))

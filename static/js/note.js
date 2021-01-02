@@ -32,7 +32,7 @@ function isValidDate(dateString) {
 }
 
 function isValidLang(lang) {
-    return ["Java", "MySQL"].indexOf(lang) > -1;
+    return ["Java", "MySQL", "Go"].indexOf(lang) > -1;
 }
 
 function isValidTitle(title) {
